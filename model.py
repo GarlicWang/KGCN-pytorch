@@ -91,7 +91,7 @@ class KGCN(torch.nn.Module):
         relation_vectors = [self.rel(relation) for relation in relations]
         
         for i in range(self.n_iter):
-            if i == self.n_iter - 1:
+            if i == self.n_iter - 1:    # last iter
                 act = torch.tanh
             else:
                 act = torch.sigmoid
@@ -107,4 +107,9 @@ class KGCN(torch.nn.Module):
                 entity_vectors_next_iter.append(vector)
             entity_vectors = entity_vectors_next_iter
         
-        return entity_vectors[0].view((self.batch_size, self.dim))
+        # iter = 1 : len(entity_vectors) = 1 -> 1
+        # iter = 2 : len(entity_vectors) = 1 -> 2 -> 1
+        # iter = 3 : len(entity_vectors) = 1 -> 3 -> 2 -> 1
+        # iter = 4 : len(entity_vectors) = 1 -> 4 -> 3 -> 2 -> 1
+        # ...
+        return entity_vectors[0].view((self.batch_size, self.dim))  # item embedding after aggregation
