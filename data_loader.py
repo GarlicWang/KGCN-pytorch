@@ -48,20 +48,6 @@ class DataLoader:
                 'rating_path': 'data/CMoney/V3_data_two_rel/have_stock_article_only/ratings_final.txt',
                 'rating_sep': '\t',
                 'threshold': 0.5
-            }, 
-            'Jeff_only_stock': {
-                'kg_path': 'data/Jeff_only_stock/kg_final.txt',
-                'rating_path': 'data/Jeff_only_stock/train_triplets.txt',
-                # 'rating_path': 'data/Jeff_only_stock/train_valid_triplets.txt',
-                'rating_sep': '\t',
-                'threshold': 0.5
-            },
-            'Jeff_two_rel': {
-                'kg_path': 'data/Jeff_three_rel/kg_final.txt',
-                'rating_path': 'data/Jeff_three_rel/train_triplets.txt',
-                # 'rating_path': 'data/Jeff_three_rel/train_valid_triplets.txt',
-                'rating_sep': '\t',
-                'threshold': 0.5
             }
         }
         self.data = data
