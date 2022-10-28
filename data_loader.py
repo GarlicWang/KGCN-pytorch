@@ -48,6 +48,30 @@ class DataLoader:
                 'rating_path': 'data/CMoney/V3_data_two_rel/have_stock_article_only/ratings_final.txt',
                 'rating_sep': '\t',
                 'threshold': 0.5
+            }, 
+            'CMoney_relabel_stock_rel_stock_article': {
+                'kg_path': 'data/CMoney_relabel/V3_data_only_stock_rel/have_stock_article_only/kg_final.txt',
+                'rating_path': 'data/CMoney_relabel/V3_data_only_stock_rel/have_stock_article_only/ratings_final.txt',
+                'rating_sep': '\t',
+                'threshold': 0.5
+            }, 
+            'CMoney_relabel_stock_rel': {
+                'kg_path': 'data/CMoney_relabel/V3_data_only_stock_rel/kg_final.txt',
+                'rating_path': 'data/CMoney_relabel/V3_data_only_stock_rel/ratings_final.txt',
+                'rating_sep': '\t',
+                'threshold': 0.5
+            }, 
+            'CMoney_relabel_two_rel': {
+                'kg_path': 'data/CMoney_relabel/V3_data_two_rel/kg_final.txt',
+                'rating_path': 'data/CMoney_relabel/V3_data_two_rel/ratings_final.txt',
+                'rating_sep': '\t',
+                'threshold': 0.5
+            }, 
+            'CMoney_relabel_two_rel_stock_article': {
+                'kg_path': 'data/CMoney_relabel/V3_data_two_rel/have_stock_article_only/kg_final.txt',
+                'rating_path': 'data/CMoney_relabel/V3_data_two_rel/have_stock_article_only/ratings_final.txt',
+                'rating_sep': '\t',
+                'threshold': 0.5
             }
         }
         self.data = data
