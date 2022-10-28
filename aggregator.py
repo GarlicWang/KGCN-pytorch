@@ -44,14 +44,14 @@ class Aggregator(torch.nn.Module):
         # [batch_size, 1, dim] -> [batch_size, 1, 1, dim]
         user_embeddings = user_embeddings.view((self.batch_size, 1, 1, self.dim))
         
-        # [batch_size, -1, n_neighbor, dim] -> [batch_size, -1, n_neighbor]
-        user_relation_scores = (user_embeddings * neighbor_relations).sum(dim = -1)
+        # [batch_size, 1, 1, dim] * [batch_size, -1, n_neighbor, dim] -> [batch_size, -1, n_neighbor, dim] -> [batch_size, -1, n_neighbor]
+        user_relation_scores = (user_embeddings * neighbor_relations).sum(dim = -1)     # inner product : pi = u dot r  (function 1 in paper)
         user_relation_scores_normalized = F.softmax(user_relation_scores, dim = -1)
         
         # [batch_size, -1, n_neighbor] -> [batch_size, -1, n_neighbor, 1]
         user_relation_scores_normalized = user_relation_scores_normalized.unsqueeze(dim = -1)
         
         # [batch_size, -1, n_neighbor, 1] * [batch_size, -1, n_neighbor, dim] -> [batch_size, -1, dim]
-        neighbors_aggregated = (user_relation_scores_normalized * neighbor_vectors).sum(dim = 2)
+        neighbors_aggregated = (user_relation_scores_normalized * neighbor_vectors).sum(dim = 2)    # inner product (function 2 in paper)
         
         return neighbors_aggregated
