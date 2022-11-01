@@ -34,7 +34,7 @@ def get_parser_args():
     parser.add_argument('--l2_weight', type=float, default=2e-5, help='weight of l2 regularization')
     parser.add_argument('--lr', type=float, default=5e-3, help='learning rate')
     parser.add_argument('--train_data_ratio', type=float, default=0.8, help='size of training dataset')
-    args = parser.parse_args([])
+    args = parser.parse_args()
     return args
 
 class trainer:
@@ -117,10 +117,6 @@ class trainer:
 
             mlflow.pytorch.log_model(self.net, f"KGCN_epoch_{epoch+1}", registered_model_name=None)
             
-    # TODO:
-    # def evaluate(self):
-    # def predict(self):
-        
 if __name__ == "__main__":
     args = get_parser_args()
 
