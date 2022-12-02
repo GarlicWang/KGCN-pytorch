@@ -1,3 +1,8 @@
+import os
+import pickle
+import pandas as pd
+import joblib
+
 def get_model_data_name(args):
     if not args.relabel:
         if args.only_stock_rel:
@@ -46,3 +51,35 @@ def get_model_data_name(args):
                 data_version = 'CMoney_relabel_two_rel'
                 print("relabel V3_two_rel")
     return model_uri, data_version
+
+def get_article_data(args):
+    if args.relabel:
+        return pd.read_csv("/data/kg_data/metadata/20220622-20220705/relabel_ArticleData-221014.csv")
+    else:
+        return joblib.load("/data/kg_data/metadata/20220622-20220705/ArticleData-220713.joblib")
+    
+def get_user_stock_dict():
+    with open("/data/kg_data/appid18_viewstock_20220622_20220705/user_stock_dict.pkl", "rb") as f:
+        user_stock_dict = pickle.load(f)
+    return user_stock_dict
+
+def get_interaction_data(args):
+    base = "./data"
+    if args.relabel:
+        data_dir = os.path.join(base, "CMoney_relabel")
+    else:
+        data_dir = os.path.join(base, "CMoney")
+    if args.only_stock_rel:
+        data_dir = os.path.join(data_dir, "V3_data_only_stock_rel")
+    else:
+        data_dir = os.path.join(data_dir, "V3_data_two_rel")
+    if args.stock_article_only:
+        data_dir = os.path.join(data_dir, "have_stock_article_only")
+    id_ent_dict_path = os.path.join(data_dir, "KGCN_id_ent_dict.pkl")
+    ent_id_dict_path = os.path.join(data_dir, "KGCN_ent_id_dict.pkl")
+
+    with open(id_ent_dict_path, "rb") as f:
+        id_ent_dict = pickle.load(f)
+    with open(ent_id_dict_path, "rb") as f:
+        ent_id_dict = pickle.load(f)
+    return id_ent_dict, ent_id_dict
