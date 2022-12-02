@@ -37,7 +37,7 @@ def get_parser_args():
     args = parser.parse_args()
     return args
 
-class trainer:
+class Trainer:
     def __init__(self, args):
         self.args = args
     
@@ -122,7 +122,7 @@ if __name__ == "__main__":
 
     model_uri, data_version = loader_helper.get_model_data_name(args)
     
-    trainer = trainer(args)
+    trainer = Trainer(args)
     trainer.load_data(data_version)
     
     # mlflow setting

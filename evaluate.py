@@ -30,7 +30,7 @@ def get_parser_args():
     args = parser.parse_args()
     return args
 
-class evaluator:
+class Evaluator:
     def __init__(self, args):
         self.args = args
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -38,7 +38,7 @@ class evaluator:
     def load_model(self, model_uri):
         self.net = mlflow.pytorch.load_model(model_uri).to(self.device)
         
-    def load_data(self):
+    def load_data(self, data_version):
         data_loader = DataLoader(data_version)
         self.rating_df = data_loader.df_rating
         self.user_encoder, self.ent_encoder, _ = data_loader.get_encoders()
@@ -69,8 +69,8 @@ if __name__ == '__main__':
         
     model_uri, data_version = loader_helper.get_model_data_name(args)
     
-    evaluator = evaluator(args)
-    evaluator.load_data()
+    evaluator = Evaluator(args)
+    evaluator.load_data(data_version)
     evaluator.load_model(model_uri)
     auc = evaluator.evaluate(frac=args.eval_frac)
     print("auc = ", auc)
