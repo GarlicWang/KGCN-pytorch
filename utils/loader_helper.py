@@ -2,6 +2,7 @@ import os
 import pickle
 import pandas as pd
 import joblib
+from collections import defaultdict
 
 def get_model_data_name(args):
     if not args.relabel:
@@ -61,7 +62,16 @@ def get_article_data(args):
 def get_user_stock_dict():
     with open("/data/kg_data/appid18_viewstock_20220622_20220705/user_stock_dict.pkl", "rb") as f:
         user_stock_dict = pickle.load(f)
-    return user_stock_dict
+    return defaultdict(list, user_stock_dict)
+
+def get_stock_user_dict():
+    with open("/data/kg_data/appid18_viewstock_20220622_20220705/user_stock_dict.pkl", "rb") as f:
+        user_stock_dict = pickle.load(f)
+    stock_user_dict = defaultdict(list)
+    for user, stock_list in user_stock_dict.items():
+        for stock in stock_list:
+            stock_user_dict[stock].append(user)
+    return stock_user_dict
 
 def get_interaction_data(args):
     base = "./data"
